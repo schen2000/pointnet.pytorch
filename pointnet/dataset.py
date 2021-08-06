@@ -156,17 +156,21 @@ class ModelNetDataset(data.Dataset):
                 self.fns.append(line.strip())
 
         self.cat = {}
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../misc/modelnet_id.txt'), 'r') as f:
+        sPath = os.path.dirname(os.path.realpath(__file__))
+        print("DBG:sPath="+sPath)
+        with open(os.path.join(sPath, '../misc/modelnet_id.txt'), 'r') as f:
+            print('DBG: modelnet_id.txt loaded')
             for line in f:
                 ls = line.strip().split()
                 self.cat[ls[0]] = int(ls[1])
-
+        print("DBG: modelnet_id >> self.cat --")
         print(self.cat)
         self.classes = list(self.cat.keys())
 
     def __getitem__(self, index):
         fn = self.fns[index]
-        cls = self.cat[fn.split('/')[0]]
+ #      cls = self.cat[fn.split('/')[0]]
+        cls = self.cat[fn.split('_')[0]]
         with open(os.path.join(self.root, fn), 'rb') as f:
             plydata = PlyData.read(f)
         pts = np.vstack([plydata['vertex']['x'], plydata['vertex']['y'], plydata['vertex']['z']]).T
