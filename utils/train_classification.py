@@ -55,12 +55,12 @@ elif opt.dataset_type == 'modelnet40':
         root=opt.dataset,
         npoints=opt.num_points,
 #        split='trainval')
-        split='modelnet40_train')
+        split='modelnet40_train2')
 
     test_dataset = ModelNetDataset(
         root=opt.dataset,
 #        split='test',
-        split='modelnet40_test',
+        split='modelnet40_test2',
         npoints=opt.num_points,
         data_augmentation=False)
 else:
