@@ -169,8 +169,9 @@ class ModelNetDataset(data.Dataset):
 
     def __getitem__(self, index):
         fn = self.fns[index]
-        print("dbg: fn="+fn)
+        #print("dbg: fn="+fn)
         sCat = fn.split('/')[0]
+        sIdx = fn.split('/')[1]
         cls = self.cat[sCat]
  #      cls = self.cat[fn.split('_')[0]]
 
@@ -180,10 +181,12 @@ class ModelNetDataset(data.Dataset):
         #pts = np.vstack([plydata['vertex']['x'], plydata['vertex']['y'], plydata['vertex']['z']]).T
 
         #---- 2)txt data 
-        fntxt = os.path.join(self.root, sCat+"_"+fn[1]+".txt")
-        txtData = np.loadtxt(fntxt).astype(np.float32)
-        pts = txtData[:, 0:2]
-
+        fntxt = os.path.join(self.root, sCat, sCat+"_"+sIdx+".txt")
+        #txtData = np.loadtxt(fntxt, delimiter=',').astype(np.float32)
+        #pts = txtData[:, 0:2]
+        pts = np.genfromtxt(fntxt, delimiter=",", dtype=np.float32, usecols=[0,1,2])
+        #print("dbg: fntxt="+fntxt)
+        #print("dbg: pts shape:"); print(pts.shape)
         #---- 
         choice = np.random.choice(len(pts), self.npoints, replace=True)
         point_set = pts[choice, :]
