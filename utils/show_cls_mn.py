@@ -32,7 +32,8 @@ print(opt)
 test_dataset = ModelNetDataset(
         root=opt.dataset,
 #        split='test',
-        split='modelnet40_test2',
+#        split='modelnet40_test2',
+        split='modelnet40_test',
         npoints=opt.num_points,
         data_augmentation=False)
 
