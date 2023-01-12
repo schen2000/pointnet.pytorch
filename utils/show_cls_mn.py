@@ -9,6 +9,9 @@ from pointnet.dataset import ModelNetDataset
 from pointnet.model import PointNetCls
 import torch.nn.functional as F
 
+hasCuda_ = torch.cuda.is_available()
+print("hasCuda_:")
+print(hasCuda_)
 
 #showpoints(np.random.randn(2500,3), c1 = np.random.uniform(0,1,size = (2500)))
 
@@ -43,7 +46,8 @@ testdataloader = torch.utils.data.DataLoader(
     test_dataset, batch_size=32, shuffle=True)
 
 classifier = PointNetCls(k=len(test_dataset.classes))
-classifier.cuda()
+if hasCuda_:
+    classifier.cuda()
 classifier.load_state_dict(torch.load(opt.model))
 classifier.eval()
 
