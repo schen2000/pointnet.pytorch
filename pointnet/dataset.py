@@ -170,8 +170,13 @@ class ModelNetDataset(data.Dataset):
     def __getitem__(self, index):
         fn = self.fns[index]
         #print("dbg: fn="+fn)
-        sCat = fn.split('/')[0]
-        sIdx = fn.split('/')[1]
+    #   sCat = fn.split('_')[0] # was '/'
+    #   sIdx = fn.split('_')[1]
+
+        L = len(fn);
+        sCat = fn[0:L-5]
+        sIdx = fn[L-4:L]
+        #----
         cls = self.cat[sCat]
  #      cls = self.cat[fn.split('_')[0]]
 
