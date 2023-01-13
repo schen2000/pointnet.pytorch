@@ -56,7 +56,8 @@ for i, data in enumerate(testdataloader, 0):
     points, target = data
     points, target = Variable(points), Variable(target[:, 0])
     points = points.transpose(2, 1)
-    points, target = points.cuda(), target.cuda()
+    if hasCuda_:
+        points, target = points.cuda(), target.cuda()
     pred, _, _ = classifier(points)
     loss = F.nll_loss(pred, target)
 

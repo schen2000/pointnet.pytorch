@@ -1,5 +1,5 @@
 cd utils
-MODEL=../pointnet_d/model/final.pth
+MODEL=cls/cls_model_0.pth
 DATASET=../../data/visiond/ModelNet/modelnet40_normal_resampled
 
 
